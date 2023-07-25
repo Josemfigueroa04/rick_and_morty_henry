@@ -10,7 +10,7 @@ export default function SearchBar({onSearch}) {
    return (
       <div>
          <input type='search' value={id} onChange={handleChanges} />
-         <button onClick={()=>onSearch(id)}>Agregar</button> 
+         <button onClick={()=>{onSearch(id); setId('')}}>Agregar</button> 
       </div>
    );
 }

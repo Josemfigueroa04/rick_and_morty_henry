@@ -1,8 +1,12 @@
 import SearchBar from "./SearchBar"
 
-const Nav = ({onSearch}) => {
+const Nav = ({onSearch, addRandomCharacter}) => {
     return(
-        <SearchBar onSearch={onSearch} />
+        <div>
+           <SearchBar onSearch={onSearch} />
+           <button onClick={addRandomCharacter}>Agregar Personaje Random</button>
+        </div>
+        
     )
 };
 
