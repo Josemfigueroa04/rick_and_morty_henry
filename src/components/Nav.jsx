@@ -1,11 +1,14 @@
 import SearchBar from "./SearchBar"
+import { Link, NavLink } from "react-router-dom";
 
 const Nav = ({onSearch, addRandomCharacter}) => {
     return(
-        <div>
+        <nav>
            <SearchBar onSearch={onSearch} />
            <button onClick={addRandomCharacter}>Agregar Personaje Random</button>
-        </div>
+              <Link to="/about"><button>About</button></Link>
+              <NavLink to="/"><button>Home</button></NavLink>
+        </nav>
         
     )
 };

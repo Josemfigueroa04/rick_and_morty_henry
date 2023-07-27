@@ -3,6 +3,9 @@ import Cards from './components/Cards.jsx';
 import Nav from './components/Nav';
 import { useState } from 'react';
 import axios from 'axios';
+import { Routes,Route } from 'react-router-dom';
+import About from './components/About';
+import Detail from './components/Detail';
 
 
 
@@ -57,9 +60,16 @@ function App() {
 
    return (
       <div className='App'>
-         <Nav onSearch={onSearch} addRandomCharacter={addRandomCharacter} />
-         <Cards characters={characters} onClose={onClose} />
-         
+
+        <Nav onSearch={onSearch} addRandomCharacter={addRandomCharacter} />
+        <Routes>  
+          <Route path='/' element={<Cards characters={characters} onClose={onClose} />} />
+          <Route path='/about' element={<About />} />
+          <Route path='/detail/:id' element={<Detail />} />
+          <Route path='*' element={<h1>Not Found 404</h1>} />
+             
+        </Routes>
+        
       </div>
    );
 }
