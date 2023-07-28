@@ -1,16 +1,32 @@
 import './App.css';
 import Cards from './components/Cards.jsx';
 import Nav from './components/Nav';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Routes,Route } from 'react-router-dom';
+import { Routes,Route,useLocation,useNavigate } from 'react-router-dom';
 import About from './components/About';
 import Detail from './components/Detail';
+import Form from './components/Form';
 
 
 
 function App() {
    const [characters, setCharacters] = useState([]);
+   const[access, setAccess] = useState(false);
+   const location = useLocation();
+   const EMAIL = 'josemfigueroa04@gmail.com';
+   const PASSWORD = '123456789';
+   const navigate = useNavigate();
+   
+  function login(userData) {
+      if (userData.password === PASSWORD && userData.email === EMAIL) {
+        setAccess(true);
+        navigate('/home');
+      }
+  };
+    useEffect(() => {
+      !access && navigate('/');
+    }, [access]);
    
    const onSearch = (id) => {
       // Verifica si el personaje ya está en la lista
@@ -58,12 +74,19 @@ function App() {
       setCharacters(charactersFilter);
    }
 
+   
+  
+
    return (
       <div className='App'>
+        
+        {
+          location.pathname !== '/' && <Nav onSearch={onSearch} addRandomCharacter={addRandomCharacter} /> 
+        }
 
-        <Nav onSearch={onSearch} addRandomCharacter={addRandomCharacter} />
         <Routes>  
-          <Route path='/' element={<Cards characters={characters} onClose={onClose} />} />
+          <Route path='/' element={<Form login={login}/>} />
+          <Route path='/home' element={<Cards characters={characters} onClose={onClose} />} />
           <Route path='/about' element={<About />} />
           <Route path='/detail/:id' element={<Detail />} />
           <Route path='*' element={<h1>Not Found 404</h1>} />
